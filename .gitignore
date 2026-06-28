@@ -1,0 +1,6 @@
+__init__.py
+migrations/
+asgipy
+wsgi.py
+admin.py
+db.sqlite3
