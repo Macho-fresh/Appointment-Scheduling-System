@@ -4,3 +4,4 @@ asgipy
 wsgi.py
 admin.py
 db.sqlite3
+__pycache__
