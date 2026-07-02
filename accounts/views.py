@@ -19,6 +19,10 @@ from django.contrib.auth import login, authenticate
 class Provider(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.is_provider == True
+    
+class NotProvider(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.is_provider == False    
 
 class RegisterView(APIView):
     permission_classes = []

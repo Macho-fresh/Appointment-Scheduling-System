@@ -5,3 +5,4 @@ wsgi.py
 admin.py
 db.sqlite3
 __pycache__
+apps.py

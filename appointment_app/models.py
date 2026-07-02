@@ -49,6 +49,9 @@ class AvailableSlots(models.Model):
     provider = models.ForeignKey(ProviderProfile, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     time = models.TimeField()
+    start_time = models.TimeField(null=True)
+    end_time = models.TimeField(null=True)
+
     WEEKDAY = {
         'Monday': 'Monday',
         'Tuesday': 'Tuesday',
