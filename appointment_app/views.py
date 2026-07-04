@@ -46,7 +46,11 @@ class CreateAvailabilityView(APIView):
         weekday = request.data.get('weekday')
         start_time = request.data.get('start_time')
         end_time = request.data.get('end_time')
-
+        # availaility for each day of week 0 duplicates
+        if Availability.objects.get(weekday=weekday):
+            return Response({
+                'error': f'Availability for {weekday} already exists'
+            }, status=status.HTTP_409_CONFLICT)
         Availability.objects.create(
             provider = ProviderProfile.objects.get(user=user),
             weekday = weekday,
@@ -55,7 +59,7 @@ class CreateAvailabilityView(APIView):
         )
 
         return Response ({
-            'message': f'Availability slots for {user.username} has been created'
+            'message': f'Availability slots for {user.username} on {weekday} has been created'
         }, status=status.HTTP_201_CREATED)
 
 class CreateAppointmentView(APIView):
@@ -200,7 +204,7 @@ class EditProviderSlotAndAvailabilityView(APIView):
 
         
         appointments = Appointment.objects.get(start_date_time = start_date_time, end_date_time = end_date_time)
-        if appointments.status is not 'Confirmed':
+        if appointments.status != 'Confirmed':
             return Response({
                 'message': f'All appointments from {start_date_time} - {end_date_time} have been cancelled or completed'
             })
